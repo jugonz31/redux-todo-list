@@ -14,7 +14,7 @@ const ToDoComponent = () => {
 
     const addTodo = () => {
         var newTodoId = todos.length;
-        var newTodo = "{ \"id\": \"" + newTodoId + "\", \"description\": \"" + input + "\", \"done\": true  }";
+        var newTodo = "{ \"id\": \"" + newTodoId + "\", \"description\": \"" + input + "\", \"done\": false  }";
         setTodos([...todos, JSON.parse(newTodo)]);
         console.log(newTodo)
     }
