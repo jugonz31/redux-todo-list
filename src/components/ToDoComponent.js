@@ -13,9 +13,14 @@ const ToDoComponent = () => {
     }
 
     const addTodo = () => {
-        var newTodoId = todos.length;
+        var newTodoId = 0;
+        if(todos.length > 0){
+            newTodoId = Number(todos[todos.length - 1].id) + 1;
+        }
+        console.log(newTodoId)
         var newTodo = "{ \"id\": \"" + newTodoId + "\", \"description\": \"" + input + "\", \"done\": false  }";
         setTodos([...todos, JSON.parse(newTodo)]);
+        console.log(todos)
         console.log(newTodo)
     }
 
