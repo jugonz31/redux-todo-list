@@ -3,9 +3,12 @@ import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { Card, CardContent, CardActions, Button } from '@material-ui/core';
+import { useSelector, useDispatch } from 'react-redux';
+import { ADD_TODO, DELETE_TODO, MARK_TODO } from "../redux/actions";
 
 const ToDoComponent = () => {
-    const [todos, setTodos] = useState([]);
+    const todos = useSelector(state => state.todos)
+    const dispatcher = useDispatch();
     const [input, setInput] = useState("");
 
     const handleChange = (e) => {
@@ -14,22 +17,18 @@ const ToDoComponent = () => {
 
     const addTodo = () => {
         var newTodoId = 0;
-        if(todos.length > 0){
+        if (todos.length > 0) {
             newTodoId = Number(todos[todos.length - 1].id) + 1;
         }
-        console.log(newTodoId)
-        var newTodo = "{ \"id\": \"" + newTodoId + "\", \"description\": \"" + input + "\", \"done\": false  }";
-        setTodos([...todos, JSON.parse(newTodo)]);
-        console.log(todos)
-        console.log(newTodo)
+        dispatcher({ type: ADD_TODO, payload: { id: newTodoId, description: input } });
     }
 
     const deleteTodo = (id) => {
-        setTodos(todos.filter(todo => todo.id !== id));
+        dispatcher({ type: DELETE_TODO, payload: { id: id } });
     }
 
     const markTodo = (id) => {
-        setTodos(todos.filter(todo => todo.id !== id));
+        dispatcher({ type: MARK_TODO, payload: { id: id } });
     }
 
     const todoCard = todos.map((todo) => {
