@@ -14,6 +14,7 @@ function reducer(state = initialState, action) {
                     done: false
                 }]
             }
+            
         case DELETE_TODO:
             return {
                 ...state,
@@ -28,7 +29,7 @@ function reducer(state = initialState, action) {
                     } return { ...todo, done: !todo.done };
                 })
             }
-            
+
         default:
             return state;
     }

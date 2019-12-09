@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import { Card, CardContent, CardActions, Button } from '@material-ui/core';
+import { Card, CardContent, CardActions, Button, Fab } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_TODO, DELETE_TODO, MARK_TODO } from "../redux/actions";
 
 const ToDoComponent = () => {
+    const uniqid = require('uniqid');
     const todos = useSelector(state => state.todos)
     const dispatcher = useDispatch();
     const [input, setInput] = useState("");
@@ -16,11 +16,7 @@ const ToDoComponent = () => {
     }
 
     const addTodo = () => {
-        var newTodoId = 0;
-        if (todos.length > 0) {
-            newTodoId = Number(todos[todos.length - 1].id) + 1;
-        }
-        dispatcher({ type: ADD_TODO, payload: { id: newTodoId, description: input } });
+        dispatcher({ type: ADD_TODO, payload: { id: uniqid(), description: input } });
     }
 
     const deleteTodo = (id) => {
